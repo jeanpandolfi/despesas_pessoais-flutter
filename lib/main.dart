@@ -2,6 +2,7 @@ import 'package:despesas_pessoais_app/models/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(DespesasApp());
@@ -76,7 +77,8 @@ class MyHomePage extends StatelessWidget {
                             fontSize: 16
                           ),
                         ),
-                        Text(e.date.toString(),
+                        Text(
+                          DateFormat('d MMM y').format(e.date),
                           style: TextStyle(
                             color: Colors.blueGrey,
                             fontSize: 12
