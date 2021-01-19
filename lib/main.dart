@@ -1,11 +1,7 @@
-import 'package:despesas_pessoais_app/components/transaction_form.dart';
-import 'package:despesas_pessoais_app/components/transaction_list.dart';
+
 import 'package:despesas_pessoais_app/components/transaction_user.dart';
-import 'package:despesas_pessoais_app/models/transaction.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:intl/intl.dart';
 
 void main() {
   runApp(DespesasApp());
