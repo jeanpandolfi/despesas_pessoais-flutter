@@ -11,54 +11,59 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: this.transactions.map((e) {
-        return Card(
-            child: Row(
-              children: [
-                Container(
-                  child: Text(
-                    'R\$ ${e.value.toStringAsFixed(2)}',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: Colors.purple
-                    ),
-                  ),
-                  margin: EdgeInsets.symmetric(
-                      horizontal: 15,
-                      vertical: 10
-                  ),
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                          color: Colors.purple,
-                          width: 2
-                      )
-                  ),
-                  padding: EdgeInsets.all(10),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(e.title,
+    return Container(
+      height: 300,
+      child: ListView.builder(
+        itemCount: this.transactions.length,
+        itemBuilder: (ctx, index) {
+          final tr = transactions[index];
+          return Card(
+              child: Row(
+                children: [
+                  Container(
+                    child: Text(
+                      'R\$ ${tr.value.toStringAsFixed(2)}',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 16
+                          fontSize: 20,
+                          color: Colors.purple
                       ),
                     ),
-                    Text(
-                      DateFormat('d MMM y').format(e.date),
-                      style: TextStyle(
-                          color: Colors.blueGrey,
-                          fontSize: 12
+                    margin: EdgeInsets.symmetric(
+                        horizontal: 15,
+                        vertical: 10
+                    ),
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            color: Colors.purple,
+                            width: 2
+                        )
+                    ),
+                    padding: EdgeInsets.all(10),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(tr.title,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16
+                        ),
                       ),
-                    )
-                  ],
-                ),
-              ],
-            )
-        );
-      }).toList(),
+                      Text(
+                        DateFormat('d MMM y').format(tr.date),
+                        style: TextStyle(
+                            color: Colors.blueGrey,
+                            fontSize: 12
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              )
+          );
+        },
+      ),
     );
   }
 }
