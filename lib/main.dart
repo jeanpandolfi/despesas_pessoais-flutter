@@ -1,5 +1,9 @@
 
-import 'package:despesas_pessoais_app/components/transaction_user.dart';
+import 'dart:math';
+
+import 'package:despesas_pessoais_app/components/transaction_form.dart';
+import 'package:despesas_pessoais_app/components/transaction_list.dart';
+import 'package:despesas_pessoais_app/models/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -17,9 +21,41 @@ class DespesasApp extends StatelessWidget{
 
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
 
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
 
+  MyHomePage();
+}
+
+class _MyHomePageState extends State<MyHomePage>{
+
+  final List<Transaction> _transactions = [
+    Transaction(id: 't1', title: 'Novo tênis de corrida', value: 310.76, date: DateTime.now()),
+    Transaction(id: 't2', title: 'Conta de luz', value: 211.30, date: DateTime.now())
+  ];
+
+  void _addTransaction(String title, double value){
+    final newTransaction = Transaction(
+        id: Random().nextDouble().toString(),
+        title: title,
+        value: value,
+        date: DateTime.now());
+
+    setState((){
+      this._transactions.add(newTransaction);
+    });
+  }
+
+  void _openTransactionForModal(BuildContext context){
+    showModalBottomSheet(
+        context: context,
+        builder: (ctx) {
+          return TransactionForm();
+        }
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +63,10 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Despesas pessoais'),
         actions: [
-          IconButton(icon: Icon(Icons.add), onPressed: (){})
+          IconButton(
+              icon: Icon(Icons.add), 
+              onPressed: () => _openTransactionForModal(context)
+          )
         ],
       ),
       body: SingleChildScrollView(
@@ -41,18 +80,18 @@ class MyHomePage extends StatelessWidget {
                 elevation: 5,
               ),
             ),
-            TransactionUser()
+            TransactionList(
+              transactions: _transactions,
+            )
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () => _openTransactionForModal(context),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
-
-  MyHomePage();
 }
 
